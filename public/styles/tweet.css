@@ -1,17 +1,10 @@
-.tweet header {
-  background-color: #eee;
-  padding: 10px;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-
 .tweet {
   background-color: white;
   margin: auto;
-  /*padding: 10px;*/
   border: 1px solid;
   border-color: lightgrey;
   border-radius: 5px;
+  margin-top: 25px;
 }
 
 .tweet .avatar {
@@ -31,7 +24,14 @@
   float: right;
 }
 
-.tweet div {
+.tweet header {
+  background-color: #eee;
+  padding: 10px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.tweet-body {
   margin: 20px 10px;
 }
 
@@ -43,12 +43,23 @@
   opacity: 1;
 }
 
+.tweet footer .icons {
+  float: right;
+  opacity: 0;
+}
+
+.tweet footer span {
+  display: inline-block;
+}
+
 article.tweet:hover{
   border-color: #a6a6a6;
 }
 
 article.tweet:hover header{
   opacity: 1;
-  border-color: black;
 }
 
+article.tweet:hover .icons {
+  opacity: 1;
+}
