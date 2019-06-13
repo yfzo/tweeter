@@ -3,6 +3,8 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+const SLIDE_DELAY = 200;
+
 $(document).ready(function() {
   const $submitTweet = $('#tweet-form');
   $submitTweet.on('submit', function(event) {
@@ -21,12 +23,13 @@ $(document).ready(function() {
 
   loadTweets();
 
+  //toggle compose button
   const $composeButton = $('#compose-btn');
   const $newTweet = $('.new-tweet');
   const $newTweetTextBox = $('.new-tweet textarea');
   
-  $composeButton.on('click', function(event) {
-    $newTweet.slideToggle(200, () => {
+  $composeButton.on('click', function() {
+    $newTweet.slideToggle(SLIDE_DELAY, () => {
       $newTweetTextBox.focus();
     });
   })
@@ -81,6 +84,7 @@ function loadTweets() {
     }
   })
   .success( res => {
+    $('#all-tweets').empty();
     renderTweets(res);
   })
 }
