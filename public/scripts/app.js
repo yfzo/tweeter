@@ -20,6 +20,16 @@ $(document).ready(function() {
   })
 
   loadTweets();
+
+  const $composeButton = $('#compose-btn');
+  const $newTweet = $('.new-tweet');
+  const $newTweetTextBox = $('.new-tweet textarea');
+  
+  $composeButton.on('click', function(event) {
+    $newTweet.slideToggle(200, () => {
+      $newTweetTextBox.focus();
+    });
+  })
 });
 
 function escape(str) {
