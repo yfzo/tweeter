@@ -22,11 +22,18 @@ $(document).ready(function() {
   loadTweets();
 });
 
+function escape(str) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
 function createTweetElement(data) {
   let $tweet = $("<article>").addClass("tweet");
   const { user, content, created_at } = data;
   const { name, avatars, handle } = data.user;
   const date = new Date(created_at);
+  const safeHTML = escape(content.text);
 
   const markup = `
   <header>
@@ -34,7 +41,7 @@ function createTweetElement(data) {
     <h3 class="name">${name}</h3>
     <h5 class="handle">${handle}</h5>
   </header>
-  <div class="tweet-body">${content.text}</div>
+  <div class="tweet-body">${safeHTML}</div>
   <footer>
     <span>${date}</span>
     <div class=icons>

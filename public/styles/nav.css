@@ -1,7 +1,7 @@
 #nav-bar {
   position: fixed;
   background: #00a087;
-  height: : 80px;
+  height: 80px;
   left: 0;
   right: 0;
   color: #e8fdff;
@@ -20,4 +20,31 @@
   padding-left: 10px;
   font-size: 200%;
   line-height: 2.5em;
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  /* margin-top: auto; */
+  /* line-height: 2.5em; */
+  position: relative;
+  top: 11px;
+}
+
+#compose-btn {
+  background-color: rgb(231, 253, 248);
+  border: 1px solid;
+  border-radius: 5px;
+  border-color: black;
+  color: #00a087;
+  font-size: 120%;
+  padding: 16px 18px;
+}
+
+#compose-btn:hover {
+  border-color: black;
+  background-color: white;
+  color: black;
 }
