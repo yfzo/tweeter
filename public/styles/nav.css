@@ -27,8 +27,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  /* margin-top: auto; */
-  /* line-height: 2.5em; */
   position: relative;
   top: 11px;
 }

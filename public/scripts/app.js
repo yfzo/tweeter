@@ -9,30 +9,44 @@ $(document).ready(function() {
   const $submitTweet = $('#tweet-form');
   $submitTweet.on('submit', function(event) {
     event.preventDefault();
+    
+      //toggle compose button
+      const $composeButton = $('#compose-btn');
+      const $newTweet = $('.new-tweet');
+      const $newTweetTextBox = $('.new-tweet textarea');
+      
+      $composeButton.on('click', function() {
+        $newTweet.slideToggle(SLIDE_DELAY, () => {
+          $newTweetTextBox.focus();
+        });
+      })
+
     const inputData = $submitTweet.serialize();
     const tweetLength = $('#tweet-form textarea').val().length;
+    const $errorMessage = $('.error-message');
+
+    if ($errorMessage.text()) {
+      $errorMessage.slideUp(SLIDE_DELAY);
+    }
 
     if (tweetLength <= 0) {
-      alert('Tweet is empty!');
+      $errorMessage.slideDown(SLIDE_DELAY, () => {
+        $errorMessage.text('Tweet is empty!');
+        $newTweetTextBox.addClass("error");
+      });
     } else if (tweetLength > 140) {
-      alert('Tweet is over 140 characters!');
+      $errorMessage.slideDown(SLIDE_DELAY, () => {
+        $errorMessage.text('Tweet is over 140 characters!');
+        $newTweetTextBox.addClass('error');
+      });
     } else {
       createTweet(inputData);
+      $newTweetTextBox.removeClass('error');
+      $newTweetTextBox.val('');
     }
   })
 
   loadTweets();
-
-  //toggle compose button
-  const $composeButton = $('#compose-btn');
-  const $newTweet = $('.new-tweet');
-  const $newTweetTextBox = $('.new-tweet textarea');
-  
-  $composeButton.on('click', function() {
-    $newTweet.slideToggle(SLIDE_DELAY, () => {
-      $newTweetTextBox.focus();
-    });
-  })
 });
 
 function escape(str) {

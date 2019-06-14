@@ -37,3 +37,14 @@ textarea {
   padding: 5px;
   margin-top: 20px;
 }
+
+.error-message {
+  color: red;
+  font-size: 80%;
+  padding-bottom: 4px; 
+}
+
+#tweet-form textarea.error {
+  border-color: red;
+  background-color: rgb(255, 224, 224);
+}
