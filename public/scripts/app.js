@@ -6,22 +6,24 @@
 const SLIDE_DELAY = 200;
 
 $(document).ready(function() {
-  const $submitTweet = $('#tweet-form');
-  $submitTweet.on('submit', function(event) {
+  //toggle compose button
+  const $composeButton = $('#compose-btn');
+  const $newTweet = $('.new-tweet');
+  const $newTweetTextBox = $('.new-tweet textarea');
+  
+  $composeButton.on('click', function() {
+    $newTweet.slideToggle(SLIDE_DELAY, () => {
+      $newTweetTextBox.focus();
+    });
+  })
+
+  //handles new tweet submissions
+  const $tweetForm = $('#tweet-form');
+
+  $tweetForm.on('submit', function() {
     event.preventDefault();
     
-      //toggle compose button
-      const $composeButton = $('#compose-btn');
-      const $newTweet = $('.new-tweet');
-      const $newTweetTextBox = $('.new-tweet textarea');
-      
-      $composeButton.on('click', function() {
-        $newTweet.slideToggle(SLIDE_DELAY, () => {
-          $newTweetTextBox.focus();
-        });
-      })
-
-    const inputData = $submitTweet.serialize();
+    const inputData = $tweetForm.serialize();
     const tweetLength = $('#tweet-form textarea').val().length;
     const $errorMessage = $('.error-message');
 
@@ -43,6 +45,7 @@ $(document).ready(function() {
       createTweet(inputData);
       $newTweetTextBox.removeClass('error');
       $newTweetTextBox.val('');
+      $('.counter').text('140');
     }
   })
 
