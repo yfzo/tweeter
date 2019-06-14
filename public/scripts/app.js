@@ -10,6 +10,8 @@ $(document).ready(function() {
   const $composeButton = $('#compose-btn');
   const $newTweet = $('.new-tweet');
   const $newTweetTextBox = $('.new-tweet textarea');
+
+  $newTweet.slideToggle(SLIDE_DELAY);
   
   $composeButton.on('click', function() {
     $newTweet.slideToggle(SLIDE_DELAY, () => {
@@ -22,36 +24,18 @@ $(document).ready(function() {
 
   $tweetForm.on('submit', function() {
     event.preventDefault();
-    
     const inputData = $tweetForm.serialize();
-    const tweetLength = $('#tweet-form textarea').val().length;
-    const $errorMessage = $('.error-message');
 
-    if ($errorMessage.text()) {
-      $errorMessage.slideUp(SLIDE_DELAY);
-    }
-
-    if (tweetLength <= 0) {
-      $errorMessage.slideDown(SLIDE_DELAY, () => {
-        $errorMessage.text('Tweet is empty!');
-        $newTweetTextBox.addClass("error");
-      });
-    } else if (tweetLength > 140) {
-      $errorMessage.slideDown(SLIDE_DELAY, () => {
-        $errorMessage.text('Tweet is over 140 characters!');
-        $newTweetTextBox.addClass('error');
-      });
-    } else {
-      createTweet(inputData);
-      $newTweetTextBox.removeClass('error');
-      $newTweetTextBox.val('');
-      $('.counter').text('140');
-    }
+    validateTweet(inputData, $newTweetTextBox);
   })
 
   loadTweets();
 });
 
+
+//helper functions
+
+//escapes unsafe characters (prevents cross-site scripting)
 function escape(str) {
   var div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
@@ -118,4 +102,35 @@ function createTweet(inputData) {
   .done(() => {
     loadTweets();
   })
+}
+
+//handles how tweet error messages are displayed
+function displayError($errorMessage, $newTweetTextBox, message) {
+  $errorMessage.slideDown(SLIDE_DELAY, () => {
+    $errorMessage.text(message);
+    $newTweetTextBox.addClass("error");
+  });
+}
+
+function validateTweet(inputData, $newTweetTextBox) {
+  const tweetLength = $('#tweet-form textarea').val().length;
+  const $errorMessage = $('.error-message');
+
+  if ($errorMessage.text()) {
+    $errorMessage.slideUp(SLIDE_DELAY);
+  }
+
+  //validates tweet upon submission and resets compose new tweet box if successful
+  if (tweetLength <= 0) {
+    let message = 'Tweet is empty!';
+    displayError($errorMessage, $newTweetTextBox, message);
+  } else if (tweetLength > 140) {
+    let message = 'Tweet is over 140 characters!';
+    displayError($errorMessage, $newTweetTextBox, message);
+  } else {
+    createTweet(inputData);
+    $newTweetTextBox.removeClass('error');
+    $newTweetTextBox.val('');
+    $('.counter').text('140');
+  }
 }

@@ -1,7 +1,3 @@
-body {
-  height: 100%;
-}
-
 .new-tweet {
   background-color: #eee;
   margin: auto;
@@ -10,14 +6,16 @@ body {
   border-radius: 5px;
 }
 
-main {
-  padding: 2em;
-}
-
-.container .new-tweet h2 {
+.new-tweet h2 {
   margin: 0;
   border-bottom: 1px solid;
   border-color: black;
+}
+
+textarea {
+  width: 100%;
+  padding: 5px;
+  margin-top: 20px;
 }
 
 .counter {
@@ -25,17 +23,12 @@ main {
   font-style: italic;
   font-size: 13px;
   padding-right: 10px;
+
   padding-top: 5px;
 }
 
 .counter.over-limit {
   color: red;
-}
-
-textarea {
-  width: 100%;
-  padding: 5px;
-  margin-top: 20px;
 }
 
 .error-message {

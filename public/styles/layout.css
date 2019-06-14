@@ -19,6 +19,7 @@ body {
   color: #244751;
   background-color: #eee;
   font-family: "Roboto Condensed", sans-serif;
+  height: 100%;
 }
 
 /*
@@ -31,4 +32,5 @@ body {
   background-color: white;
   top: 80px;
   position: relative;
+  padding: 2em;
  }
