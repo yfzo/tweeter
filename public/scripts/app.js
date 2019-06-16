@@ -46,8 +46,8 @@ function createTweetElement(data) {
   let $tweet = $("<article>").addClass("tweet");
   const { user, content, created_at } = data;
   const { name, avatars, handle } = data.user;
-  const date = new Date(created_at);
   const safeHTML = escape(content.text);
+  const timeAgo = calculateTimeAgo(created_at);
 
   const markup = `
   <header>
@@ -57,7 +57,7 @@ function createTweetElement(data) {
   </header>
   <div class="tweet-body">${safeHTML}</div>
   <footer>
-    <span>${date}</span>
+    <span>${timeAgo}</span>
     <div class=icons>
       <span class="iconify" data-icon="el:flag" data-inline="false"></span>
       <span class="iconify" data-icon="fa:retweet" data-inline="false"></span>
@@ -132,5 +132,25 @@ function validateTweet(inputData, $newTweetTextBox) {
     $newTweetTextBox.removeClass('error');
     $newTweetTextBox.val('');
     $('.counter').text('140');
+  }
+}
+
+function calculateTimeAgo(createdAt) {
+  let currentTime = Date.now();
+
+  let millisecondsAgo = currentTime - createdAt;
+  let secondsAgo = millisecondsAgo / 1000;
+  let minutesAgo = secondsAgo / 60;
+  let daysAgo = minutesAgo / (60 * 24);
+
+  if (daysAgo >= 1) {
+    if (daysAgo < 2) return `${Math.trunc(daysAgo)} day ago`;
+      else return `${Math.trunc(daysAgo)} days ago`;
+  } else if (minutesAgo >= 60) {
+    return `${Math.trunc(minutesAgo / 60)} hours ago`;
+  } else if (secondsAgo >= 60) {
+    return `${Math.trunc(secondsAgo / 60)} minutes ago`;
+  } else {
+    return `${Math.trunc(secondsAgo)} seconds ago`;
   }
 }
